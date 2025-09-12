@@ -675,10 +675,10 @@ function updateStitching() {
                             if (!stitchingPositions.has(stitchKey)) {
                                 createStitchingBlock(stitchX, stitchZ, currentStep, neighbor.step);
                                 stitchingPositions.add(stitchKey);
-                            }
-                        }
-                    }
-                } else {
+                }
+            }
+        }
+    } else {
                     // Original diagonal stitching
                     var stitchX, stitchZ;
                     
