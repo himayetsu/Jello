@@ -131,6 +131,20 @@
             border-top-color: #333;
             z-index: 1000;
         }
+        #fps-counter {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: #000;
+            font-size: 14px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            min-width: 60px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -180,8 +194,41 @@
         </div>
     </div>
 
+    <div id="fps-counter">
+        <div style="font-size: 12px; margin-bottom: 2px;">FPS</div>
+        <div id="fps-value">0</div>
+    </div>
+
     <script src="js/three.min.js"></script>
     <script src="js/OrbitControls-real.js"></script>
     <script src="jello-3d.js"></script>
+    
+    <script>
+        // FPS Counter
+        let lastTime = performance.now();
+        let frameCount = 0;
+        let fps = 0;
+        const fpsValueElement = document.getElementById('fps-value');
+        
+        function updateFPS() {
+            const currentTime = performance.now();
+            frameCount++;
+            
+            // Update FPS every 500ms for smooth display
+            if (currentTime - lastTime >= 500) {
+                fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+                fpsValueElement.textContent = fps;
+                frameCount = 0;
+                lastTime = currentTime;
+            }
+            
+            requestAnimationFrame(updateFPS);
+        }
+        
+        // Start FPS counter when page loads
+        window.addEventListener('load', () => {
+            updateFPS();
+        });
+    </script>
 </body>
 </html>
